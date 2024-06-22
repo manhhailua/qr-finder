@@ -170,7 +170,7 @@ def main():
         60,  # max value
         10,  # default value
         1,  # step
-        help="Adjust the frame rate to scan the video. Higher frame rates may speed up the scanning process but provide less accurate results.",
+        help="Adjust the frame rate to scan the video. Higher frame rate may speed up the scanning process but provide less accurate results.",
     )
 
     st.sidebar.info(
