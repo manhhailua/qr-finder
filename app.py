@@ -166,10 +166,10 @@ def main():
     # Frame rate slider to adjust the frame rate of the video
     st.session_state.frame_rate = st.sidebar.slider(
         "Frame rate",
-        1,
-        60,
-        5,
-        1,
+        1,  # min value
+        60,  # max value
+        10,  # default value
+        1,  # step
         help="Adjust the frame rate to scan the video. Higher frame rates may speed up the scanning process but provide less accurate results.",
     )
 
