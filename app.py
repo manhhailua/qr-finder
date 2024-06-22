@@ -115,11 +115,14 @@ def scan_video_files():
 
 
 def main():
-    st.sidebar.title("Video QR Scanner")
+    st.sidebar.title("Which video files contain the QR code?")
 
     # Search box to enter the QR code to search for
     st.session_state.search_code = st.sidebar.text_input(
-        "Search QR code", "", placeholder="SPXVN0413xxxxxxxx"
+        "Search QR code",
+        "",
+        placeholder="SPXVN0413xxxxxxxx",
+        label_visibility="collapsed",
     )
 
     # File uploader to select a video file
