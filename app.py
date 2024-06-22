@@ -76,9 +76,6 @@ def scan_qr(video_path):
         # Display the frame with QR codes with st.video
         st.session_state.scanning_image.image(frame, channels="BGR")
 
-        if cv2.waitKey(1) & 0xFF == ord("q"):
-            break
-
     # Release the video capture and close the OpenCV windows
     cap.release()
     cv2.destroyAllWindows()
