@@ -78,7 +78,6 @@ def scan_qr(video_path):
 
     # Release the video capture and close the OpenCV windows
     cap.release()
-    cv2.destroyAllWindows()
 
     return qr_codes
 
