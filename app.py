@@ -25,10 +25,15 @@ def scan_qr(video_path):
 
     cap = cv2.VideoCapture(video_path)
     qr_codes = []
+    frame_count = 0
     match_count = 0
 
     while cap.isOpened():
         ret, frame = cap.read()
+        frame_count += 1
+
+        if frame_count % st.session_state.frame_rate != 0:
+            continue
 
         if not ret:
             break
@@ -119,10 +124,20 @@ def main():
 
     # Search box to enter the QR code to search for
     st.session_state.search_code = st.sidebar.text_input(
-        "Search QR code",
+        "QR code",
         "",
         placeholder="SPXVN0413xxxxxxxx",
-        label_visibility="collapsed",
+        help="Enter the QR code to search for in the video files.",
+    )
+
+    # Frame rate slider to adjust the frame rate of the video
+    st.session_state.frame_rate = st.sidebar.slider(
+        "Frame rate",
+        1,
+        60,
+        5,
+        1,
+        help="Adjust the frame rate to scan the video. Higher frame rates may speed up the scanning process but provide less accurate results.",
     )
 
     # File uploader to select a video file
