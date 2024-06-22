@@ -2,6 +2,7 @@ import os
 import streamlit as st
 import cv2
 from pyzbar import pyzbar
+import time
 
 # Get the current directory of the script
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -50,11 +51,28 @@ def scan_qr(video_path):
             (x, y, w, h) = barcode.rect
 
             # Draw a rectangle around the QR code
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
             # Extract the data encoded in the QR code
             qr_data = barcode.data.decode("utf-8")
 
+            # Display the QR code data below the bounding box and centerize
+            text_width, _ = cv2.getTextSize(qr_data, cv2.FONT_HERSHEY_SIMPLEX, 0.8, 2)[
+                0
+            ]
+            text_x = x + (w - text_width) // 2
+            text_y = y + h + 20
+            cv2.putText(
+                frame,
+                qr_data,
+                (text_x, text_y),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.8,
+                (255, 0, 0),
+                2,
+            )
+
+            # Check if the QR code matches the search code
             if st.session_state.search_code.lower() == qr_data.lower():
                 # Centerize the text
                 text_width, _ = cv2.getTextSize(
@@ -94,15 +112,16 @@ def scan_video_files():
     Returns:
         None
     """
-    if st.button("Click to scan", type="primary"):
-        st.session_state.scanning_text = st.empty()
-        st.session_state.scanning_image = st.image([], channels="BGR")
 
-        search_code_found = False
+    if st.button("Click to scan", type="primary"):
+        st.session_state.scanning_text = st.sidebar.empty()
+        st.session_state.scanning_image = st.image([], channels="BGR")
+        st.session_state.search_code_found = False
+
+        start_time = time.time()
         for video_file in st.session_state.video_files:
-            st.session_state.scanning_text.info(
-                "Scanning file: " + video_file.name + "..."
-            )
+            st.session_state.scanning_text.info(f"Scanning file: {video_file.name}...")
+
             # Save the uploaded video file to a temporary location
             with open(TEMP_VIDEO_PATH, "wb") as f:
                 f.write(video_file.read())
@@ -113,17 +132,21 @@ def scan_video_files():
             # Display the detected QR codes
             for qr_code in qr_codes:
                 if st.session_state.search_code.lower() == qr_code.lower():
-                    search_code_found = True
+                    st.session_state.search_code_found = True
                     st.success(video_file.name + " contains the QR code: " + qr_code)
                     break
 
             # Remove the temporary video file
             os.remove(TEMP_VIDEO_PATH)
 
-        st.session_state.scanning_text.empty()
+        end_time = time.time()
+        processing_time = end_time - start_time
+        st.session_state.scanning_text.info(
+            f"Processing time: {processing_time:.2f} seconds."
+        )
         st.session_state.scanning_image.empty()
 
-        if not search_code_found:
+        if not st.session_state.search_code_found:
             st.warning(
                 f"No video files containing the QR code {st.session_state.search_code} were found."
             )
@@ -148,6 +171,10 @@ def main():
         5,
         1,
         help="Adjust the frame rate to scan the video. Higher frame rates may speed up the scanning process but provide less accurate results.",
+    )
+
+    st.sidebar.info(
+        "Blue color text indicates the QR code detected in the video. Green color text indicates the QR code matches the search code."
     )
 
     # File uploader to select a video file
