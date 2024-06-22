@@ -54,7 +54,7 @@ def scan_qr(video_path):
 
             # Extract the data encoded in the QR code
             qr_data = barcode.data.decode("utf-8")
-            qr_codes.append(qr_data)
+
             if st.session_state.search_code.lower() == qr_data.lower():
                 # Centerize the text
                 text_width, _ = cv2.getTextSize(
@@ -75,6 +75,7 @@ def scan_qr(video_path):
 
         # Break the loop if 3 matches are found
         if match_count >= 3:
+            qr_codes.append(qr_data)
             break
 
         # Display the frame with QR codes with st.video
@@ -94,11 +95,13 @@ def scan_video_files():
         None
     """
     if st.button("Click to scan", type="primary"):
-        st.session_state.scanning_text = st.text("")
+        st.session_state.scanning_text = st.empty()
         st.session_state.scanning_image = st.image([], channels="BGR")
+
+        search_code_found = False
         for video_file in st.session_state.video_files:
-            st.session_state.scanning_text.text(
-                "Scanning video file: " + video_file.name + "..."
+            st.session_state.scanning_text.info(
+                "Scanning file: " + video_file.name + "..."
             )
             # Save the uploaded video file to a temporary location
             with open(TEMP_VIDEO_PATH, "wb") as f:
@@ -110,13 +113,20 @@ def scan_video_files():
             # Display the detected QR codes
             for qr_code in qr_codes:
                 if st.session_state.search_code.lower() == qr_code.lower():
-                    st.write(video_file.name, "contains the QR code:", qr_code)
+                    search_code_found = True
+                    st.success(video_file.name + " contains the QR code: " + qr_code)
                     break
 
             # Remove the temporary video file
             os.remove(TEMP_VIDEO_PATH)
+
         st.session_state.scanning_text.empty()
         st.session_state.scanning_image.empty()
+
+        if not search_code_found:
+            st.warning(
+                f"No video files containing the QR code {st.session_state.search_code} were found."
+            )
 
 
 def main():
