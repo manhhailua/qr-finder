@@ -240,14 +240,6 @@ opencv-python-headless==4.10.0.84 ; python_version >= "3.11" and python_version 
     --hash=sha256:a4f4bcb07d8f8a7704d9c8564c224c8b064c63f430e95b61ac0bffaa374d330e \
     --hash=sha256:afcf28bd1209dd58810d33defb622b325d3cbe49dcd7a43a902982c33e5fad05 \
     --hash=sha256:f2017c6101d7c2ef8d7bc3b414c37ff7f54d64413a1847d89970b6b7069b4e1a
-opencv-python==4.10.0.84 ; python_version >= "3.11" and python_version < "3.13" \
-    --hash=sha256:09a332b50488e2dda866a6c5573ee192fe3583239fb26ff2f7f9ceb0bc119ea6 \
-    --hash=sha256:2db02bb7e50b703f0a2d50c50ced72e95c574e1e5a0bb35a8a86d0b35c98c236 \
-    --hash=sha256:32dbbd94c26f611dc5cc6979e6b7aa1f55a64d6b463cc1dcd3c95505a63e48fe \
-    --hash=sha256:71e575744f1d23f79741450254660442785f45a0797212852ee5199ef12eed98 \
-    --hash=sha256:72d234e4582e9658ffea8e9cae5b63d488ad06994ef12d81dc303b17472f3526 \
-    --hash=sha256:9ace140fc6d647fbe1c692bcb2abce768973491222c067c131d80957c595b71f \
-    --hash=sha256:fc182f8f4cda51b45f01c64e4cbedfc2f00aff799debebc305d8d0210c43f251
 packaging==24.1 ; python_version >= "3.11" and python_version < "3.13" \
     --hash=sha256:026ed72c8ed3fcce5bf8950572258698927fd1dbda10a5e981cdf0ac37f4f002 \
     --hash=sha256:5b8f2217dbdbd2f7f384c41c628544e6d52f2d0f53c6d0c3ea61aa5d1d7ff124
@@ -537,9 +529,6 @@ streamlit==1.36.0 ; python_version >= "3.11" and python_version < "3.13" \
 tenacity==8.4.1 ; python_version >= "3.11" and python_version < "3.13" \
     --hash=sha256:28522e692eda3e1b8f5e99c51464efcc0b9fc86933da92415168bc1c4e2308fa \
     --hash=sha256:54b1412b878ddf7e1f1577cd49527bad8cdef32421bd599beac0c6c3f10582fd
-tk==0.1.0 ; python_version >= "3.11" and python_version < "3.13" \
-    --hash=sha256:60bc8923d5d35f67f5c6bd93d4f0c49d2048114ec077768f959aef36d4ed97f8 \
-    --hash=sha256:703a69ff0d5ba2bd2f7440582ad10160e4a6561595d33457dc6caa79b9bf4930
 toml==0.10.2 ; python_version >= "3.11" and python_version < "3.13" \
     --hash=sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b \
     --hash=sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f

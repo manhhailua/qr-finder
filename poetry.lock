@@ -493,7 +493,7 @@ files = [
 name = "opencv-python"
 version = "4.10.0.84"
 description = "Wrapper package for OpenCV python bindings."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 files = [
@@ -1199,18 +1199,6 @@ doc = ["reno", "sphinx"]
 test = ["pytest", "tornado (>=4.5)", "typeguard"]
 
 [[package]]
-name = "tk"
-version = "0.1.0"
-description = "TensorKit is a deep learning helper between Python and C++."
-category = "main"
-optional = false
-python-versions = "*"
-files = [
-    {file = "tk-0.1.0-py3-none-any.whl", hash = "sha256:703a69ff0d5ba2bd2f7440582ad10160e4a6561595d33457dc6caa79b9bf4930"},
-    {file = "tk-0.1.0.tar.gz", hash = "sha256:60bc8923d5d35f67f5c6bd93d4f0c49d2048114ec077768f959aef36d4ed97f8"},
-]
-
-[[package]]
 name = "toml"
 version = "0.10.2"
 description = "Python Library for Tom's Obvious, Minimal Language"
@@ -1345,4 +1333,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.13"
-content-hash = "e48cc96e845592277aa1cacdb44d95afb01b9dc1737b8e6dec2da07afa3acc9a"
+content-hash = "33d8da97367e20344acfe8105f9ae052c75bcdb5925517874f0fbc39cae47a89"
