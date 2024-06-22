@@ -2,7 +2,6 @@ import os
 import streamlit as st
 import cv2
 from pyzbar import pyzbar
-import os
 
 # Get the current directory of the script
 current_dir = os.path.dirname(os.path.abspath(__file__))
