@@ -114,6 +114,9 @@ def scan_video_files():
     """
 
     if st.button("Click to scan", type="primary"):
+        st.session_state.process_info = st.sidebar.info(
+            "While scanning, blue text indicates that a QR code has been detected in the video, while green text indicates that the QR code matches the search code."
+        )
         st.session_state.scanning_text = st.sidebar.empty()
         st.session_state.scanning_image = st.image([], channels="BGR")
         st.session_state.search_code_found = False
@@ -141,6 +144,8 @@ def scan_video_files():
 
         end_time = time.time()
         processing_time = end_time - start_time
+
+        st.session_state.process_info.empty()
         st.session_state.scanning_text.info(
             f"Processing time: {processing_time:.2f} seconds."
         )
@@ -173,9 +178,8 @@ def main():
         help="Adjust the frame rate to scan the video. Higher frame rate may speed up the scanning process but provide less accurate results.",
     )
 
-    st.sidebar.info(
-        "Blue color text indicates the QR code detected in the video. Green color text indicates the QR code matches the search code."
-    )
+    # Information about the scanning process
+    st.session_state.process_info = st.empty()
 
     # File uploader to select a video file
     with st.expander("Select video files", expanded=True):
