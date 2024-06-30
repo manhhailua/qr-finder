@@ -1,8 +1,9 @@
+import cv2
 import os
 import streamlit as st
-import cv2
-from pyzbar import pyzbar
 import time
+
+from pyzbar import pyzbar
 
 # Get the current directory of the script
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -27,7 +28,7 @@ def scan_qr(video_path):
     cap = cv2.VideoCapture(video_path)
     qr_codes = []
     frame_count = 0
-    match_count = 0
+    is_matched = False
 
     while cap.isOpened():
         ret, frame = cap.read()
@@ -74,7 +75,7 @@ def scan_qr(video_path):
 
             # Check if the QR code matches the search code
             if st.session_state.search_code.lower() == qr_data.lower():
-                # Centerize the text
+                # Centerize the text of the matched QR code
                 text_width, _ = cv2.getTextSize(
                     qr_data, cv2.FONT_HERSHEY_SIMPLEX, 1, 2
                 )[0]
@@ -89,10 +90,12 @@ def scan_qr(video_path):
                     (0, 255, 0),
                     2,
                 )
-                match_count += 1
+                # Set the flag to indicate that a matching QR code is found
+                is_matched = True
+                break
 
-        # Break the loop if 3 matches are found
-        if match_count >= 3:
+        # Break the loop if matching QR codes are found to avoid scanning the rest of the video
+        if is_matched:
             qr_codes.append(qr_data)
             break
 
